@@ -14,9 +14,7 @@
 </head>
 
     <body>
-    <!-- Remove this line the first time you edit this file -->
-    <!-- This is the index page of your Django app! -->
-    <!--Add a nav bar here -->
+
 
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
@@ -26,14 +24,44 @@
             <ul class="nav nav-pills">
                 <li class="nav-item"><a href="{% url 'djangoapp:about' %}" class="nav-link">About Us</a></li>
                 <li class="nav-item"><a href="{% url 'djangoapp:contact' %}" class="nav-link">Contact Us</a></li>
-            </ul>
+				{% if user.is_authenticated %}
+				<li>
+					<a class="btn btn-link" href="#">{{ user.first_name }}({{ user.username }})</a>
+					<a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
+				</li>
+				{% else %}
+				<li>
+					<form class="form-inline" action="{% url 'djangoapp:login' %}" method="post">
+                {% csrf_token %}
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Username" name="username" >
+                        <input type="password" class="form-control" placeholder="Password" name="psw" >
+                        <button class="btn btn-primary" type="submit">Login</button>
+                        <a class="btn btn-link" href="#">Sign Up</a>
+                    </div>
+					</form>
+				</li>
+				{% endif %}
 			
+			</ul>
 			
+
 			
         </div>
     </nav>
-
-    <!--Add a dealer table here -->
+	<form action="{% url 'djangoapp:login' %}"  method="post">
+		{% csrf_token %}
+		<div class="container">
+			<h1>Login</h1>
+			<label for="username"><b>User Name</b></label>
+			<input type="text" placeholder="Enter User Name: " name="username" required>
+			<label for="psw"><b>Password</b></label>
+			<input type="password" placeholder="Enter Password: " name="psw" required>
+			<div>
+				<button class="button" type="submit">Login</button>
+			</div>
+		</div>
+	</form>
 
     </body>
 

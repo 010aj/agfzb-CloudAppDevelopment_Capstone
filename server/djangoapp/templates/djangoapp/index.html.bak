@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dealership Review:Contact</title>
+    <title>Dealership Review</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -12,6 +12,11 @@
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
 
 </head>
+
+    <body>
+    <!-- Remove this line the first time you edit this file -->
+    <!-- This is the index page of your Django app! -->
+    <!--Add a nav bar here -->
 
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
@@ -36,7 +41,7 @@
                         <input type="text" class="form-control" placeholder="Username" name="username" >
                         <input type="password" class="form-control" placeholder="Password" name="psw" >
                         <button class="btn btn-primary" type="submit">Login</button>
-                        <a class="btn btn-link" href="{% url 'djangoapp:registration' %}">Sign Up</a>
+                        <a class="btn btn-link" href="{% url 'onlinecourse:registration' %}">Sign Up</a>
                     </div>
 					</form>
 				</li>
@@ -46,10 +51,8 @@
         </div>
     </nav>
 
-<html>
-    <div>
-    Telephone:
-    Address:
-    </div>
-    </html>
-    
+    <!--Add a dealer table here -->
+
+    </body>
+
+</html>
