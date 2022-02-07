@@ -22,8 +22,8 @@ from .models import CarMake, CarModel
 #    model = CarMake
 #    inlines = [CarModelInline]
     
-admin.site.register(CarModel)
-admin.site.register(CarMake)
+admin.site.register(CarModel, CarModelAdmin)
+admin.site.register(CarMake, CarMakeAdmin)
 
 
 
