@@ -45,13 +45,15 @@
     <!-- Add reviews as cards -->
 	
 	<div class="card-columns">
+		
 		{% for review in list %}
+		
 		<div class="card">
 		
 			{% if review.sentiment == "positive" %}
 			<img src="{{MEDIA_URL}}/emoji/positive.png" width="50" height="50">
 			{% elif review.sentiment == "neutral" %}
-			<<img src="{{MEDIA_URL}}/emoji/neutral.png" width="50" height="50">
+			<img src="{{MEDIA_URL}}/emoji/neutral.png" width="50" height="50">
 			{% else %}
 			<img src="{{MEDIA_URL}}/emoji/negative.png" width="50" height="50">
 			{% endif %}
@@ -66,7 +68,7 @@
 		{% endfor %}
 	</div>
 	{% if user.is_authenticated %}
-	<h><a href="">Add review</a></h>
+	<h><a href="./add_review.html">Add review</a></h>
 	
 	{% endif %}
     </body>

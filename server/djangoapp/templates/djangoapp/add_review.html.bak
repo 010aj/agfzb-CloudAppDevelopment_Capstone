@@ -16,7 +16,7 @@
 	<form action="{% url 'djangoapp:postreview' id%}">
 		<h3>
 		Add a review about {{context.name}}
-		
+
 		</h3>
 		<div class="form-group">
 		    <label for="content">Enter the review content:</label>

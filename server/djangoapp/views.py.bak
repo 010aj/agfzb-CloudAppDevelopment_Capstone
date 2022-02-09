@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
-# from .models import related models
+from .models import *
 # from .restapis import related methods
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
@@ -113,26 +113,39 @@ def get_dealer_details(request, id):
         reviews = get_dealer_reviews_from_cf(url, id)
         review_all = ' '.join([review_list.review for review_list in reviews])
         context = reviews
-        return render(request, 'djangoapp/dealer_details.html', context)
+        
+        return render(request, 'djangoapp/dealer_details.html', {"list" : context})
           
 
 # Create a `add_review` view to submit a review
-@login_required
-def add_review(request, id):
-    review = {}
-    review["time"] = datetime.utcnow().isoformat()
-    review["dealership"] = id
-    review["review"] = "This is a great car dealer"
-    review["id"] = 22   
-    review["name"] = "Testing through-func"
-    review["purchase"] = True
-    review["purchase_date"] = "09/17/2020"
-    review["car_make"] = "Bugatti"
-    review["car_model"] = "Chiron milennium"
-    review["car_year"] = 2030
-    json_payload = {}
-    json_payload["review"] = review
-    url = "https://3dbc2a14.us-south.apigw.appdomain.cloud/postreview/api/review"
-    result = post_request(url, json_payload)
-    return HttpResponse(result)
 
+def add_review(request, id):
+    context = {}
+    user = request.user
+    if user.is_authenticated:
+        if request.method == "POST":
+            json_payload = {}
+            json_payload["review"] = review
+            url = "https://3dbc2a14.us-south.apigw.appdomain.cloud/postreview/api/review"
+            result = post_request(url, json_payload)
+            return HttpResponse(result)
+        
+        elif request.method == "GET":
+            models = list(CarModel.car_manager.all().filter(dealerid=id))
+            context["cars"] = models
+            context["id"] = id
+            dealer = CarDealer.dealer_manager.all().filter(id=id)
+            context["dealer"] = dealer
+            return render(request, 'djangoapp/add_review.html', context)
+
+    #review = {}
+    #review["time"] = datetime.utcnow().isoformat()
+    #review["dealership"] = id
+    #review["review"] = "This is a great car dealer"
+    #review["id"] = 22   
+    #review["name"] = "Testing through-func"
+    #review["purchase"] = True
+    #review["purchase_date"] = "09/17/2020"
+    #review["car_make"] = "Bugatti"
+    #review["car_model"] = "Chiron milennium"
+    #review["car_year"] = 2030
