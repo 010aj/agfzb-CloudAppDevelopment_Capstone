@@ -95,14 +95,16 @@ def analyze_review_sentiments(dealerreview):
     natural_language_understanding.set_service_url(url) 
 
     text=dealerreview
-    response = natural_language_understanding.analyze(text=text, 
+    
+    try:
+        response = natural_language_understanding.analyze(text=text, 
                                                   features = Features(sentiment = SentimentOptions())).get_result()
-    
-    #print(json.dumps(response, indent=2))
-    a=response["sentiment"]
-    a=a["document"]
-    a=a["label"]
-    
+        a=response["sentiment"]
+        a=a["document"]
+        a=a["label"]
+    except:
+        a="Neutral"
+        
     return a
 
 
