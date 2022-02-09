@@ -97,10 +97,11 @@ def get_dealerships(request):
         url = "https://3dbc2a14.us-south.apigw.appdomain.cloud/api/dealership/api/dealership"
         # Get dealers from the URL
         dealerships = get_dealers_from_cf(url)
+        context = dealerships
         # Concat all dealer's short name
         dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
         # Return a list of dealer short name
-        return HttpResponse(dealer_names)
+        return render(request, 'djangoapp/index.html', {"list" : context})
 
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
@@ -121,9 +122,9 @@ def add_review(request, id):
     review["time"] = datetime.utcnow().isoformat()
     review["dealership"] = id
     review["review"] = "This is a great car dealer"
-    review["id"] = 22
+    review["id"] = 22   
     review["name"] = "Testing through-func"
-    review["purchase"] = true
+    review["purchase"] = True
     review["purchase_date"] = "09/17/2020"
     review["car_make"] = "Bugatti"
     review["car_model"] = "Chiron milennium"
