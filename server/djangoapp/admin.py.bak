@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CarMake, CarModel
+from .models import CarMake, CarModel, CarDealer
 
 
 # Register your models here.
@@ -22,8 +22,8 @@ from .models import CarMake, CarModel
 #    model = CarMake
 #    inlines = [CarModelInline]
     
-admin.site.register(CarModel, CarModelAdmin)
-admin.site.register(CarMake, CarMakeAdmin)
+admin.site.register(CarModel)
+admin.site.register(CarMake)
 
 
 

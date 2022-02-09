@@ -26,8 +26,8 @@ def get_request(url, id):
 
 
 # Create a `post_request` to make HTTP POST requests
-def post_request(url, json_payload, **kwargs): 
-    response = requests.post(url, json=json_payload)
+def post_request(url, json_payload, id, **kwargs): 
+    response = requests.post(url, json=json_payload, params=id)
     return response
 
 # Create a get_dealers_from_cf method to get dealers from a cloud function

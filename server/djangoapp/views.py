@@ -9,7 +9,8 @@ from django.contrib import messages
 from datetime import datetime
 import logging
 import json
-
+from .restapis import *
+from django.contrib.auth.decorators import login_required, permission_required
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
@@ -93,15 +94,43 @@ def registration_request(request):
 def get_dealerships(request):
     context = {}
     if request.method == "GET":
-        return render(request, 'djangoapp/index.html', context)
-
+        url = "https://3dbc2a14.us-south.apigw.appdomain.cloud/api/dealership/api/dealership"
+        # Get dealers from the URL
+        dealerships = get_dealers_from_cf(url)
+        # Concat all dealer's short name
+        dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
+        # Return a list of dealer short name
+        return HttpResponse(dealer_names)
 
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
-# def get_dealer_details(request, dealer_id):
-# ...
+def get_dealer_details(request, id):
+    if request.method == "GET":
+        url = "https://3dbc2a14.us-south.apigw.appdomain.cloud/api/review/api/review"
+        
+        reviews = get_dealer_reviews_from_cf(url, id)
+        review_all = ' '.join([review_list.review for review_list in reviews])
+        
+        return HttpResponse(review_all)
+          
 
 # Create a `add_review` view to submit a review
-# def add_review(request, dealer_id):
-# ...
+@login_required
+def add_review(request, id):
+    review = {}
+    review["time"] = datetime.utcnow().isoformat()
+    review["dealership"] = id
+    review["review"] = "This is a great car dealer"
+    review["id"] = 22
+    review["name"] = "Testing through-func"
+    review["purchase"] = True
+    review["purchase_date"] = "09/17/2020"
+    review["car_make"] = "Bugatti"
+    review["car_model"] = "Chiron milennium"
+    review["car_year"] = 2030
+    json_payload = {}
+    json_payload["review"] = review
+    url = "https://3dbc2a14.us-south.apigw.appdomain.cloud/postreview/api/review"
+    result = post_request(url, json_payload)
+    return HttpResponse(result)
 
