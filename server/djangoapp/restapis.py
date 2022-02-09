@@ -73,11 +73,11 @@ def get_dealer_reviews_from_cf(url, id):
         review_lists = json_result["docs"]
         for review_list in review_lists:
             review_doc = review_list
-            sentiment = analyze_review_sentiments(review_doc["review"])
+            sentiment1 = analyze_review_sentiments(review_doc["review"])
             review_obj = DealerReview(dealership=review_doc["dealership"],name=review_doc["name"],purchase=review_doc["purchase"],
                                       id=review_doc["id"],review=review_doc["review"],purchase_date=review_doc["purchase_date"],
                                       car_make=review_doc["car_make"],car_model=review_doc["car_model"],
-                                      car_year=review_doc["car_year"], sentiment = sentiment)
+                                      car_year=review_doc["car_year"], sentiment = sentiment1)
             results.append(review_obj)
             
     return results
@@ -103,7 +103,7 @@ def analyze_review_sentiments(dealerreview):
         a=a["document"]
         a=a["label"]
     except:
-        a="Neutral"
+        a="neutral"
         
     return a
 
