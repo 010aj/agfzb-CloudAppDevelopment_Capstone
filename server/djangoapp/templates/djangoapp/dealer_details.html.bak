@@ -43,9 +43,9 @@
         </div>
     </nav>
     <!-- Add reviews as cards -->
-	
+	<div class = "container">
 	<div class="card-columns">
-		
+		<h5>Reviews for {{name}}</h5>
 		{% for review in list %}
 		
 		<div class="card">
@@ -71,6 +71,7 @@
 	<h><a href="./add_review.html">Add review</a></h>
 	
 	{% endif %}
+	</div>
     </body>
 
 </html>

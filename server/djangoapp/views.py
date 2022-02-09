@@ -105,16 +105,17 @@ def get_dealerships(request):
 
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
-def get_dealer_details(request, id):
+def get_dealer_details(request, dealername, id):
     context = {}
     if request.method == "GET":
         url = "https://3dbc2a14.us-south.apigw.appdomain.cloud/api/review/api/review"
-        
+        context2={}
         reviews = get_dealer_reviews_from_cf(url, id)
         review_all = ' '.join([review_list.review for review_list in reviews])
         context = reviews
-        
-        return render(request, 'djangoapp/dealer_details.html', {"list" : context})
+        context2["list"]=context
+        context2["name"]=dealername
+        return render(request, 'djangoapp/dealer_details.html', context2)
           
 
 # Create a `add_review` view to submit a review
@@ -149,3 +150,7 @@ def add_review(request, id):
     #review["car_make"] = "Bugatti"
     #review["car_model"] = "Chiron milennium"
     #review["car_year"] = 2030
+
+def dealer_details(request,Dealername, Dealer_ID):
+    detail={"name":Dealername,"id":Dealer_ID}
+    return render(request, 'dealer_details.html', detail)
