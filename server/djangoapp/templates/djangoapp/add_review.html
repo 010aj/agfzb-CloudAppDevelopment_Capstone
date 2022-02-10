@@ -26,16 +26,26 @@
 			<label><input class="form-check-input" type="checkbox" name="purchasecheck" id="purchasecheck">Has purchased the Car from {{dealer}}?</label>
 		</div>
 		<div class="form-group">
+		<label>Select your car(model-make-year):</label>
 		<select name="car" id="car" class="form-select" required>
 		{% for car in cars %}
          <option selected value={{car.id}}>{{car.name}}-{{car.make.name}}-{{ car.year|date:"Y" }}</option>
 		{% endfor %}
-		</select>
+		</select></div>
+		<div class="form-group">
+		<label>Select your purchase date:<input class="date-own form-control" type="text" name="purchasedate" id="purchasedate"></label>
 		</div>
 		<div class="form-group">
 		<button type="submit" class="btn btn-primary mb-3">Submit</button>
 		</div>
+
 	</form>
 	</div>
+	  <script type="text/javascript">
+      $('.date-own').datepicker({
+         format: 'mm/dd/yyyy'
+       });
+ </script>
+	
     </body>
 </html>

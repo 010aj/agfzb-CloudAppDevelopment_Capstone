@@ -127,7 +127,7 @@ def add_review(request, id, dealername):
     if user.is_authenticated:
         if request.method == "POST":
             json_payload = {}
-            json_payload["review"] = review
+            json_payload["review"] = request.content
             url = "https://3dbc2a14.us-south.apigw.appdomain.cloud/postreview/api/review"
             result = post_request(url, json_payload)
             return HttpResponse(result)
