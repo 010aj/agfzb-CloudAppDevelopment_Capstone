@@ -38,7 +38,7 @@ class CarModel(models.Model):
     car_manager = models.Manager()
     
     def __str__(self):
-        return f'{self.name},{self.make}, {self.year}'
+        return f'{self.name},{self.make},{self.year}'
 
 # <HINT> Create a Car Model model `class CarModel(models.Model):`:
 # - Many-To-One relationship to Car Make model (One Car Make has many Car Models, using ForeignKey field)
@@ -84,17 +84,17 @@ class CarDealer:
 
 class DealerReview:
 
-    def __init__(self, dealership, name, purchase, id, review, purchase_date, car_make, car_model, car_year, sentiment):
+    def __init__(self, dealership, name, purchase, id, review, sentiment, **kwargs):
         
         self.dealership = dealership
         self.name = name
         self.purchase = purchase
         self.id = id
         self.review = review
-        self.purchase_date = purchase_date
-        self.car_make = car_make
-        self.car_model = car_model
-        self.car_year = car_year
+        self.purchase_date = kwargs["purchase_date"]
+        self.car_make = kwargs["car_make"]
+        self.car_model = kwargs["car_model"]
+        self.car_year = kwargs["car_year"]
         self.sentiment = sentiment
         
     def __str__(self):

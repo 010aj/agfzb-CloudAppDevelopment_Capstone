@@ -114,13 +114,14 @@ def get_dealer_details(request, dealername, id):
         review_all = ' '.join([review_list.review for review_list in reviews])
         context = reviews
         context2["list"]=context
-        context2["name"]=dealername
+        context2["dealername"]=dealername
+        context2["id"]=id
         return render(request, 'djangoapp/dealer_details.html', context2)
           
 
 # Create a `add_review` view to submit a review
 
-def add_review(request, id):
+def add_review(request, id, dealername):
     context = {}
     user = request.user
     if user.is_authenticated:
@@ -135,8 +136,8 @@ def add_review(request, id):
             models = list(CarModel.car_manager.all().filter(dealerid=id))
             context["cars"] = models
             context["id"] = id
-            dealer = list(CarDealer.dealer_manager.all().filter(id=id))
-            context["dealer"] = dealer
+            #dealer = list(CarDealer.dealer_manager.all().filter(id=id))
+            context["dealer"] = dealername
             return render(request, 'djangoapp/add_review.html', context)
 
     #review = {}

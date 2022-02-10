@@ -44,7 +44,7 @@
     </nav>
     <!-- Add reviews as cards -->
 	<div class = "container">
-		<h5>Reviews for {{name}}</h5>
+		<h5>Reviews for {{dealername}}</h5>
 	<div class="card-columns">
 		
 		{% for review in list %}
@@ -69,7 +69,7 @@
 		{% endfor %}
 	</div>
 	{% if user.is_authenticated %}
-	<h><a href="./add_review.html">Add review</a></h>
+	<h><a href="{% url 'djangoapp:postreview' id dealername %}">Add review</a></h>
 	
 	{% endif %}
 	</div>
