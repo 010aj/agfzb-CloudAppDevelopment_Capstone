@@ -13,7 +13,7 @@
     <body>
     <!--Add review form here -->
 	<div class = "container">
-	<form action="{% url 'djangoapp:postreview' id%}">
+	<form action="{% url 'djangoapp:postreview' id dealer%}">
 		<h3>
 		Add a review about {{dealer}}
 		
@@ -23,15 +23,18 @@
 			<textarea class="form-control" id="content" name="content" rows="2" required></textarea>
 		</div>
 		<div class="checkbox">
-			<label><input class="form-check-input" type="checkbox" name="purchasecheck" id="purchasecheck">Has purchased the Car from this dealership?</label>
+			<label><input class="form-check-input" type="checkbox" name="purchasecheck" id="purchasecheck">Has purchased the Car from {{dealer}}?</label>
 		</div>
+		<div>
 		<select name="car" id="car" class="form-select" required>
 		{% for car in cars %}
          <option selected value={{car.id}}>{{car.name}}-{{car.make.name}}-{{ car.year|date:"Y" }}</option>
 		{% endfor %}
 		</select>
-
-		<button type="submit" class="btn btn-default">Submit</button>
+		</div>
+		<div class="form-group">
+		<button type="submit" class="btn btn-primary mb-3">Submit</button>
+		</div>
 	</form>
 	</div>
     </body>
